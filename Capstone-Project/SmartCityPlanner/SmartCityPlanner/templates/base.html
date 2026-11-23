@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ title or 'Smart City Planner' }}</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></head>
+<body><div class="shell">
+<aside class="sidebar"><div class="brand"><div class="brand-mark">SC</div><div><b>SMARTCITY</b><small>PLANNING SUITE</small></div></div>
+<div class="nav-label">WORKSPACE</div>
+<a href="/dashboard" class="{{ 'active' if request.path=='/dashboard' else '' }}">▦ &nbsp; Overview</a>
+<a href="/map" class="{{ 'active' if request.path=='/map' else '' }}">⌖ &nbsp; City map</a>
+<div class="nav-label">ANALYSIS MODULES</div>
+<a href="/accessibility">◎ &nbsp; Urban accessibility</a><a href="/optimizer">⌁ &nbsp; Utility optimizer</a><a href="/conflicts">◇ &nbsp; Conflict detection</a><a href="/resilience">⇄ &nbsp; Resilience simulator</a>
+<div class="nav-label">MANAGEMENT</div><a href="/reports">▤ &nbsp; Reports & history</a><a href="/data">▧ &nbsp; Data management</a><a href="/settings">⚙ &nbsp; Settings</a>
+<div class="sidebar-bottom"><div class="avatar">{{ session.user[:1]|upper }}</div><div><b>{{ session.user }}</b><small>Administrator</small></div><a class="logout" href="/logout">↗</a></div></aside>
+<main class="main"><header class="topbar"><div><span class="eyebrow">CHENNAI · TAMIL NADU</span><h1>{{ heading or 'Planning workspace' }}</h1></div><div class="top-actions"><span class="live-dot"></span><span>Local planning environment</span><button class="icon-btn" id="themeToggle">◐</button></div></header>
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="notice">{{ message }}</div>{% endfor %}{% endwith %}
+<section class="content">{% block content %}{% endblock %}</section><footer>Smart City Navigation & Utility Network Planner <span>Data includes demonstration records · OSM attribution shown on map</span></footer></main></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js"></script><script src="{{ url_for('static',filename='js/app.js') }}"></script>{% block scripts %}{% endblock %}</body></html>
